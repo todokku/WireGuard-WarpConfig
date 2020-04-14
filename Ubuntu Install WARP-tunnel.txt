@@ -1,0 +1,72 @@
+Install WireGuard on Linux as normaly !
+
+Add the Wireguard repository to your sources list. 
+Apt will then automatically update the package cache.
+
+sudo add-apt-repository ppa:wireguard/wireguard
+
+Install Wireguard. The wireguard package will install all necessary dependencies.
+
+sudo apt install wireguard
+
+Create the file /etc/wireguard/wg0.conf
+
+You will need to run Folder menager or nautilus as root
+for that write:
+
+sudo nautilus
+
+Locate the file /etc/wireguard/wg0.conf if you haven't created it yet, 
+create it with the text redactor and paste it in /etc/wireguard/ named as wg0.conf
+
+Inside put the content of WARP-identity.conf generated file, made a new one under Windows to use on linux.
+When you have taken the content of WARP-identity.conf as your new wg0.conf at the location /etc/wireguard/wg0.conf
+before you save it, remove the DNS settings line: DNS 1.1.1.1 
+then it should look like this: 
+
+[Interface]
+PrivateKey = <private key>
+Address = <ip4 ip address>
+Address = <ip6 ip Adress/port>
+
+[Peer]
+PublicKey = <public key>
+AllowedIPs = 0.0.0.0/0
+AllowedIPs = ::/0
+Endpoint = engage.cloudflareclient.com:2408
+
+Then Set Up Firewall Rules
+
+    Allow SSH connections and WireGuard’s VPN port:
+
+    sudo ufw allow 22/tcp
+    sudo ufw allow 51820/udp
+    sudo ufw enable
+
+    Verify the settings:
+
+    sudo ufw status verbose
+
+Start the Wireguard Service
+
+    Start Wireguard:
+
+    wg-quick up wg0
+
+        
+		Note
+ To turn off the wg0 interface with write:
+ wg-quick down wg0
+
+    Enable the Wireguard service to automatically restart on boot:
+
+    sudo systemctl enable wg-quick@wg0
+
+    Check if the VPN tunnel is running with the following two commands:
+
+    sudo wg show
+	
+If you see the connection details. with lat handshake.
+If all is fine, you should have encrypted conection working under linux,
+with WireGuad tied directly with the linux kernel, sos system side based.
+
