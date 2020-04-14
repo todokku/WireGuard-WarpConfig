@@ -61,12 +61,16 @@ Start the Wireguard Service
     Enable the Wireguard service to automatically restart on boot:
 
     sudo systemctl enable wg-quick@wg0
+    
+    if you need to turn it off
+    
+    sudo systemctl disable wg-quick@wg0
 
     Check if the VPN tunnel is running with the following two commands:
 
     sudo wg show
 	
-If you see the connection details. with lat handshake.
-If all is fine, you should have encrypted conection working under linux,
-with WireGuad tied directly with the linux kernel, sos system side based.
+If you see the connection details. with it's last handshake.
+all is fine, you should have encrypted connection working under linux,
+with WireGuad tied directly with the linux kernel, so system wide based.
 
